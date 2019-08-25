@@ -6,7 +6,7 @@ use Rain\Tpl;
 
 class Page {
 
-    private static $DEFAULTS = [
+    protected static $DEFAULTS = [
         'data' => [],
     ];
 
@@ -14,13 +14,13 @@ class Page {
     private $options = []; 
     
 
-    public function __construct(array $options=[]) {
+    public function __construct(array $options=[], string $tpl_dir='views') {
         $this->options = array_merge(STATIC::$DEFAULTS, $options);
 
         // config
         $config = array(
-            "tpl_dir"       => $_SERVER["DOCUMENT_ROOT"] . DIRECTORY_SEPARATOR . 'e-commerce' . DIRECTORY_SEPARATOR . "views" . DIRECTORY_SEPARATOR,
-            "cache_dir"     => $_SERVER["DOCUMENT_ROOT"] . DIRECTORY_SEPARATOR . 'e-commerce' . DIRECTORY_SEPARATOR . "views-cache" . DIRECTORY_SEPARATOR,
+            "tpl_dir"       => $_SERVER["DOCUMENT_ROOT"] . "/e-commerce/$tpl_dir/",
+            "cache_dir"     => $_SERVER["DOCUMENT_ROOT"] . "/e-commerce/views-cache/",
             "debug"         => false // set to false to improve the speed
         );
 
