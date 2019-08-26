@@ -25,7 +25,7 @@ $app->get('/admin', function() {
 		$page = new PageAdmin([], 'views/admin');
 		$page->setTpl("index");
 	} else {
-		header('Location: admin/login');
+		header('Location: http:/localhost/e-commerce/admin/login');
 		exit;
 	}
 
@@ -34,12 +34,15 @@ $app->get('/admin', function() {
 $app->get('/admin/login', function() {
 	
 	if (User::isAdminLoggedIn()) {
-		header('Location: ../admin');
+		header('Location: http:/localhost/e-commerce/admin');
 		exit;
 	} else {
 		$page = new PageAdmin([
 			"header" => false,
 			"footer" => false,
+			'data' => [
+				'rootAddress' => '../',
+			],
 		], 'views/admin');
 		$page->setTpl("login");
 	}
@@ -49,16 +52,32 @@ $app->get('/admin/login', function() {
 $app->post('/admin/login', function() {
     
 	User::login($_POST['login'], $_POST['password']);
-	header('Location: ../admin');
+	header('Location: http:/localhost/e-commerce/admin');
 	exit;
 
 });
 
 $app->get('/admin/logout', function () {
 
-	if (User::isAdminLoggedIn()) User::logout();	
-	header('Location: ../admin/login');
+	if (User::isAdminLoggedIn()) User::logout();
+	header('Location: http:/localhost/e-commerce/admin/login');
 	exit;
+
+});
+
+$app->get('/admin/users', function () {
+
+	if (User::isAdminLoggedIn()) {
+		$page = new PageAdmin([
+			'data' => [
+				'rootAddress' => '../',
+			],
+		], 'views/admin');
+		$page->setTpl("users");
+	} else {
+		header('Location: http:/localhost/e-commerce/admin/login');
+		exit;
+	}
 
 });
 

@@ -9,7 +9,9 @@ class Page {
     protected static $DEFAULTS = [
         'header' => true,
         'footer' => true,
-        'data' => [],
+        'data' => [
+            'rootAddress' => '',
+        ],
     ];
 
     private $tpl;
